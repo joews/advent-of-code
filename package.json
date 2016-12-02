@@ -1,0 +1,24 @@
+{
+  "name": "advent-of-code",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "standard",
+    "fix": "standard --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jwhitfieldseed/advent-of-code.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jwhitfieldseed/advent-of-code/issues"
+  },
+  "homepage": "https://github.com/jwhitfieldseed/advent-of-code#readme",
+  "devDependencies": {
+    "standard": "^8.6.0"
+  }
+}
