@@ -23,7 +23,7 @@ let y = 2
   A B C
     D
 *********/
-
+/* eslint-disable */
 const keypad = [,,
   '1',, , ,
   '2', '3', '4', ,
@@ -31,6 +31,7 @@ const keypad = [,,
   'A', 'B', 'C',,, ,
   'D', , ,
 ]
+/* eslint-enable */
 
 function clampX (delta) {
   const n = x + delta + 5 * y

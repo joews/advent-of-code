@@ -18,7 +18,11 @@
     "url": "https://github.com/jwhitfieldseed/advent-of-code/issues"
   },
   "homepage": "https://github.com/jwhitfieldseed/advent-of-code#readme",
+  "dependencies": {
+    "fn": "git@github.com:jwhitfieldseed/fn.git"
+  },
   "devDependencies": {
+    "babel": "^6.5.2",
     "standard": "^8.6.0"
   }
 }
