@@ -1,9 +1,7 @@
 const { loadInput, fn } = require('./lib.js')
-const { pipe, map, filter, reduce, toArray, split } = fn
+const { pipe, map, filter, reduce, split, flatten } = fn
 
 // JS with lazy streams and function composition
-const input = loadInput('3.txt')
-const lines = input.trim().split('\n')
 
 // transpose the 3x3 matrix m
 function transpose (m) {
@@ -17,14 +15,6 @@ function transpose (m) {
   return out
 }
 
-function * flatten (list) {
-  for (const child of list) {
-    for (const grandchild of child) {
-      yield grandchild
-    }
-  }
-}
-
 function parse (line) {
   return line.trim()
     .split(/\s+/)
@@ -35,9 +25,14 @@ function sort (list) {
   return list.sort((a, b) => b - a)
 }
 
+// a, b, c are the side lengths of a possible triangle, sorted descending
+// returns true if the lengths make a valid triangle, false if they don't.
 function isTriangle ([a, b, c]) {
   return b + c > a
 }
+
+const input = loadInput('3.txt')
+const lines = input.trim().split('\n')
 
 // transpose the input by treating 3-segments of columns as rows
 const transposed = pipe(lines,
