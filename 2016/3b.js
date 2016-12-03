@@ -1,10 +1,8 @@
-require('babel-register')({ ignore: false })
-const { readFileSync } = require('fs')
-const { join } = require('path')
-const { pipe, map, filter, reduce, toArray, split } = require('fn')
+const { loadInput, fn } = require('./lib.js')
+const { pipe, map, filter, reduce, toArray, split } = fn
 
 // JS with lazy streams and function composition
-const input = readFileSync(join(__dirname, 'input', '3.txt'), 'utf8')
+const input = loadInput('3.txt')
 const lines = input.trim().split('\n')
 
 // transpose the 3x3 matrix m
@@ -46,9 +44,7 @@ const transposed = pipe(lines,
   map(parse),
   split(3),
   map(transpose),
-  flatten,
-  toArray
-)
+  flatten)
 
 const result = pipe(transposed,
   map(sort),
