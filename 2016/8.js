@@ -1,7 +1,7 @@
 const { loadInput, fn } = require('./lib.js')
 const { pipe, map, filter, toArray } = fn
 
-// Day 8
+// Day 8 a and b
 // In which I accidentally write a procedural matrix library.
 // Next time i'm doing this in clojure.
 
@@ -42,7 +42,7 @@ function sum (matrix) {
 
 function toString (matrix) {
 	return matrix.map(row => 
-		row.map(c => c ? "#" : ".").join("")
+		row.map(c => c ? "#" : " ").join("")
 	).join("\n")
 }
 
