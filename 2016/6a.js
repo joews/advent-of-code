@@ -1,5 +1,5 @@
 const { loadInput, fn } = require('./lib.js')
-const { pipe, map, filter, toArray } = fn
+const { pipe, map, toArray } = fn
 
 // JS with lazy streams and function composition
 

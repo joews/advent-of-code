@@ -7,7 +7,7 @@ const fn = require('fn')
 
 module.exports = {
   fn,
-  loadInput(filename) {
+  loadInput (filename) {
     return readFileSync(join(__dirname, 'input', filename), 'utf8')
   }
 }
