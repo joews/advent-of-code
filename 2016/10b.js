@@ -1,7 +1,7 @@
 const { loadInput, fn } = require('./lib.js')
-const { pipe, map, filter, reduce, toArray } = fn
+const { pipe, map, filter, reduce, toArray, autoPartial: curry } = fn
 
-// Day 10
+// Day 10b
 // Functional JS
 // - only pure functions
 // - no mutable state
@@ -10,6 +10,11 @@ const { pipe, map, filter, reduce, toArray } = fn
 // This was hard. Static types wold have saved a lot of frustration..
 // Pattern matching, Object spread and immutable Arrays would have for a cleaner solution 
 // Mutable state would have been a lot quicker!
+
+// Part II adds a cleaner state update pattern (by bringing schedued
+// actions into the state, the `settle` logic becomes trivial and the 
+// "did I take this action"? check becomes explicit), and adds the "output"
+// part of the puzzle.
 
 //
 // Input
@@ -88,30 +93,44 @@ function getInput (state, action) {
 
 // execute the GIVE action and return the updated state 
 function give (state, action) {
-	const { bots } = state
+	const { bots, outputs, actions } = state
 	const giver = getBot(bots, action.bot)
+
 	if (giver.values.length < 2) {
 		// console.log(`bot ${giver.id} does not have enough values to give`)
 		// return the input state without consuming any actions
 		return state
 	}
 
-	const low = (action.lowType === "bot")
+	// distribute values to bots and outputs
+	// TODO this part of the code is quite messy. Better pattern?
+
+	const lowBot = (action.lowType === "bot")
 		? giveFromIndex(giver, getBot(bots, action.lowId), 0)
 		: null
 
-	const high = (action.highType === "bot") 
+	const highBot = (action.highType === "bot") 
 		? giveFromIndex(giver, getBot(bots, action.highId), 1)
+		: null
+
+	const lowOutput = (action.lowType === "output")
+		? { [action.lowId]: giver.values[0] }
+		: null
+
+	const highOutput = (action.highType === "output")
+		? { [action.highId]: giver.values[1] }
 		: null
 
 	// the giver always gives away both values
 	const outGiver = assign(giver, { values: [] })
 
 	// we met preconditions so we have consumed the "give away" action
-	const actions = consumeAction(state.actions, action)
+	const nextActions = consumeAction(state.actions, action)
 
-	const nextBots = assign(bots, { [giver.id]: outGiver }, low, high)
-	return assign(state, { bots: nextBots, actions })
+	const nextBots = assign(bots, { [giver.id]: outGiver }, lowBot, highBot)
+	const nextOutputs = assign(outputs, lowOutput, highOutput)
+
+	return assign(state, { bots: nextBots, actions: nextActions, outputs: nextOutputs })
 }
 
 // { id, low, high, history }
@@ -146,14 +165,15 @@ function giveFromIndex(giver, receiver, index) {
 function getInitialState(actions) {
 	return {
 		actions: [...actions],
-		bots: {}
+		bots: {},
+		outputs: {}
 	}
 }
 
 // process actions until we have dealt with all of them
 function settle (state, iteration = 0) {
 	// console.log(`SETTLE ${iteration}`, state)
-	const { actions, bots } = state
+	const { actions } = state
 
 	// recursion depth sanity check
 	if (actions.length === 0 || iteration > 100) {
@@ -164,12 +184,10 @@ function settle (state, iteration = 0) {
 	}
 }
 
-// Return the bot that is responsible for comparing values a and b
-function findBotForValues (bots, a, b) {
-	return Object.keys(bots).find((id) => {
-		const { history } = bots[id]
-		return history.includes(a) && history.includes(b)
-	})
+// Return the product of the last value in the outputs with the given ids
+// - this is the solution for part 2
+function productOutputs (outputIds, state) {
+	return outputIds.reduce((product, id) => state.outputs[id] * product, 1)
 }
 
 // const input = `
@@ -186,6 +204,6 @@ const result = pipe(input.trim().split("\n"),
 	map(parse),
 	getInitialState,
 	settle,
-	({ bots }) => findBotForValues(bots, 61, 17),
+	curry(productOutputs)([0, 1, 2]),
 	console.log
 )
