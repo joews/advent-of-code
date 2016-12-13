@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/jwhitfieldseed/advent-of-code#readme",
   "dependencies": {
+    "a-star": "^0.2.0",
     "fn": "git@github.com:jwhitfieldseed/fn.git",
     "md5": "^2.2.1"
   },
