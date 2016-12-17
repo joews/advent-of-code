@@ -1,48 +1,42 @@
 const md5 = require('md5')
 
+// Day 17a in pure functional JavaScript
+
 // returns [up, down, left, right]
 function getSides (path) {
-  const hash = md5(path)
-  const sides = hash.substr(0, 4).split('').map(isOpen)
-  return sides
+  return md5(path).substr(0, 4).split('').map(isOpen)
 }
 
 function isOpen (sideChar) {
   return /^[bcdef]$/.test(sideChar)
 }
 
-function getNeighbours ([x, y], path) {
-  let neighbours = []
+function getNeighbours ([[x, y], path]) {
   const [upOpen, downOpen, leftOpen, rightOpen] = getSides(path)
 
-  // up, down, left, right
-  if (y > 0 && upOpen) neighbours.push([[x, y - 1], path + 'U'])
-  if (y < 3 && downOpen) neighbours.push([[x, y + 1], path + 'D'])
-  if (x > 0 && leftOpen) neighbours.push([[x - 1, y], path + 'L'])
-  if (x < 3 && rightOpen) neighbours.push([[x + 1, y], path + 'R'])
-
-  return neighbours
+  // TODO find a cleaner functional pattern for predicated list construction
+  return [
+    (y > 0 && upOpen) && [[x, y - 1], path + 'U'],
+    (y < 3 && downOpen) && [[x, y + 1], path + 'D'],
+    (x > 0 && leftOpen) && [[x - 1, y], path + 'L'],
+    (x < 3 && rightOpen) && [[x + 1, y], path + 'R']
+  ].filter(x => x)
 }
 
-// BFS, with no removal of visited nodes because the hash changes with each room visit
+// Functional, tail recursive BFS with no removal of visited nodes
+// because the hash changes with each room visit
 function search (passcode) {
-  const queue = [[[0, 0], passcode]]
+  function visit ([head, ...tail]) {
+    const [[x, y], code] = head
 
-  while (true) {
-    const [[x, y], code] = queue[0]
-
-    // stop when we hit the bottom right square
-    if (x === 3 && y === 3) {
-      console.log(code)
-      break
-    }
-
-    getNeighbours([x, y], code).forEach(neighbour => {
-      queue.push(neighbour)
-    })
-
-    queue.shift()
+    // stop at the shortest path to the bottom right corner
+    return (x === 3 && y === 3)
+      ? code
+      : visit([...tail, ...getNeighbours(head)])
   }
+
+  return visit([[[0, 0], passcode]])
 }
 
-search('gdjjyniy')
+const INPUT = 'gdjjyniy'
+console.log(search(INPUT).replace(INPUT, ''))
