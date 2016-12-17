@@ -1,50 +1,54 @@
+#!/usr/bin/env node --harmony_tailcalls
+
+// Run with --harmony_tailcalls, which only works in strict mode
+'use strict'
 const md5 = require('md5')
+
+// Day 17a in pure functional JavaScript
 
 // returns [up, down, left, right]
 function getSides (path) {
-  const hash = md5(path)
-  const sides = hash.substr(0, 4).split('').map(isOpen)
-  return sides
+  return md5(path).substr(0, 4).split('').map(isOpen)
 }
 
 function isOpen (sideChar) {
   return /^[bcdef]$/.test(sideChar)
 }
 
-function getNeighbours ([x, y], path) {
-  let neighbours = []
+function getNeighbours ([[x, y], path]) {
   const [upOpen, downOpen, leftOpen, rightOpen] = getSides(path)
 
-  // up, down, left, right
-  if (y > 0 && upOpen) neighbours.push([[x, y - 1], path + 'U'])
-  if (y < 3 && downOpen) neighbours.push([[x, y + 1], path + 'D'])
-  if (x > 0 && leftOpen) neighbours.push([[x - 1, y], path + 'L'])
-  if (x < 3 && rightOpen) neighbours.push([[x + 1, y], path + 'R'])
-
-  return neighbours
+  // TODO find a cleaner functional pattern for predicated list construction
+  return [
+    (y > 0 && upOpen) && [[x, y - 1], path + 'U'],
+    (y < 3 && downOpen) && [[x, y + 1], path + 'D'],
+    (x > 0 && leftOpen) && [[x - 1, y], path + 'L'],
+    (x < 3 && rightOpen) && [[x + 1, y], path + 'R']
+  ].filter(x => x)
 }
 
-// BFS, with no removal of visited nodes because the hash changes with each room visit
+// Functional, tail recursive BFS with no removal of visited nodes
+// because the hash changes with each room visit.
+// Only withs with a big stack (node --stack-size=65500) or proper tail calls
+// (--harmony_tailcalls + strict mode).
 function search (passcode) {
-  const queue = [[[0, 0], passcode]]
-  const solutions = []
-
-  while (queue.length > 0) {
-    const [[x, y], code] = queue[0]
-
-    // stop when we hit the bottom right square for the first time
-    if (x === 3 && y === 3) {
-      solutions.push(code)
+  function visit (queue, solutions) {
+    // console.log(queue.length)
+    if (queue.length === 0) {
+      return solutions
     } else {
-      getNeighbours([x, y], code).forEach(neighbour => {
-        queue.push(neighbour)
-      })
-    }
+      const [head, ...tail] = queue
+      const [[x, y], code] = head
 
-    queue.shift()
+      // stop this path when we reach the bottom corner for the first time
+      return (x === 3 && y === 3)
+        ? visit(tail, [...solutions, code])
+        : visit([...tail, ...getNeighbours(head)], solutions)
+    }
   }
 
-  return solutions
+  const startNode = [[0, 0], passcode]
+  return visit([startNode], [])
 }
 
 function getLongestPathLength (passcode) {
