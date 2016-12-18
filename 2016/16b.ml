@@ -3,8 +3,7 @@ open Printf;;
 (*
 This was a learning experience in OCaml computation. I had to:
 * Change rev_map to rev_append to avoid stack overflow
-* Rewrite the recursive take to an imperative form to finish before the 
-*  universe ends 
+* Rewrite take to pattern match
 *)
 
 let length = 35651584;;
@@ -17,14 +16,14 @@ let join list =
 let print_list list =
    printf "%s\n" (join list);;
 
-(* the recursive if/else take from part 1 was WAY too slow. *)
-let take2 n list =
-  let arr = Array.of_list list in
-  let result = Array.make n (List.hd list) in
-  for i = 0 to n - 1 do
-    result.(i) <- arr.(i)
-  done;
-  Array.to_list result
+let take n l =
+  let rec _take n l output = 
+    match l with
+    | [] -> List.rev output
+    | _ when n=0 -> List.rev output
+    | head::tail -> _take (n - 1) tail (head::output)
+    in
+   _take n l [];;
 
 let invert = function
    | 1 -> 0
@@ -55,7 +54,7 @@ let rec fill_disk a =
   if List.length a < length then
     fill_disk (step a)
   else
-    take2 length a;;
+    take length a;;
 
 let checksum_term pair =
   if (fst pair) == (snd pair) then 1 else 0;;

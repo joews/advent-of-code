@@ -11,12 +11,13 @@ let print_list list =
    printf "%s\n" (join list);;
 
 let take n l =
-  let rec aux n l output = 
-    if n == 0 || List.length l == 0 then 
-      List.rev output 
-    else
-      aux (n - 1) (List.tl l) ((List.hd l)::output)
-   in aux n l [];;
+  let rec _take n l output = 
+    match l with
+    | [] -> List.rev output
+    | _ when n=0 -> List.rev output
+    | head::tail -> _take (n - 1) tail (head::output)
+    in
+   _take n l [];;
 
 let invert = function
    | 1 -> 0
