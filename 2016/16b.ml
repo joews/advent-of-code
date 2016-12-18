@@ -2,8 +2,8 @@ open Printf;;
 
 (*
 This was a learning experience in OCaml computation. I had to:
-* Change rev_map to rev_append to avoid stack overflow
-* Rewrite take to pattern match
+* Change List.map/append to rev_map/rev_append to avoid stack overflow
+* Rewrite take to pattern match rather than checking List.length
 *)
 
 let length = 35651584;;
