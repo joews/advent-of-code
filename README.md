@@ -4,9 +4,23 @@
 
 ## Setup
 
-JavaScript
+### JavaScript
 
 ```
 nvm use 6
 npm i
+```
+
+### Racket
+
+```
+brew install racket
+```
+
+### OCaml
+
+```
+brew install ocaml
+brew install opam
+opam install batteries
 ```
