@@ -1,7 +1,6 @@
 open Printf;;
 
-let () = Printexc.record_backtrace true;;
-
+let length = 272;;
 let input = [1;1;1;0;1;0;0;0;1;1;0;0;1;0;1;0;0];;
 
 (* util *)
