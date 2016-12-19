@@ -24,3 +24,5 @@ brew install ocaml
 brew install opam
 opam install batteries
 ```
+
+* Copy the [batteries ocamlinit](https://raw.githubusercontent.com/ocaml-batteries-team/batteries-included/master/ocamlinit) to `~/.ocamlinit` to auto-load batteries in the repl.
