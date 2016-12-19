@@ -69,10 +69,12 @@ let count_safe_tiles num_rows row =
 let input = "^^.^..^.....^..^..^^...^^.^....^^^.^.^^....^.^^^...^^^^.^^^^.^..^^^^.^^.^.^.^.^.^^...^^..^^^..^.^^^^";;
 
 (* part 1 *)
-(*let num_rows = 40;;*)
+let num_rows = 40;;
 
 (* part 2 *)
-let num_rows = 400000;;
+(*let num_rows = 400000;;*)
    
-let answer = count_safe_tiles num_rows (parse input);;
-print_int answer;;
+input
+|> parse
+|> count_safe_tiles num_rows
+|> print_int;;
