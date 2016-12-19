@@ -59,11 +59,10 @@ let count_safe_tiles num_rows row =
   let rec aux num_rows row count = 
     match num_rows with
     | 0 -> count
-    | n -> let next_row = get_next_row row 
-          in
-          aux (n - 1) next_row (count + (count_row_safe_tiles row))
-  in 
-  aux num_rows row 0          
+    | n -> 
+      let next_row = get_next_row row in
+      aux (n - 1) next_row (count + (count_row_safe_tiles row))
+  in aux num_rows row 0          
 
 (* go *)
 let input = "^^.^..^.....^..^..^^...^^.^....^^^.^.^^....^.^^^...^^^^.^^^^.^..^^^^.^^.^.^.^.^.^^...^^..^^^..^.^^^^";;
