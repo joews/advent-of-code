@@ -1,6 +1,5 @@
 const aStar = require('a-star')
 
-
 function isOpen (x, y) {
   const n = x * x + 3 * x + 2 * x * y + y + y * y + INPUT
   const ones = count1Bits(n)
@@ -42,7 +41,6 @@ function constant () {
 function isEnd ([x, y]) {
   return x === TARGET[0] && y === TARGET[1]
 }
-
 
 // const INPUT = 10
 // const START = [1, 1]

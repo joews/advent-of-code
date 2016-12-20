@@ -16,7 +16,7 @@ const input = [
 ]
 
 function done () {
-  return input.every(([size, position], i) => 
+  return input.every(([size, position], i) =>
     position === (input.length - i - 1) % size
   )
 }

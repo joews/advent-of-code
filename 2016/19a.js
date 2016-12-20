@@ -22,7 +22,7 @@ while (true) {
         let presents = elves[targetElfIndex]
         elves[elfIndex] += presents
         elves[targetElfIndex] = 0
-        
+
         // console.log(`elf ${now + 1} stole ${presents} from ${target + 1}`)
         break
       }
