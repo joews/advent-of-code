@@ -1,17 +1,17 @@
 open Printf;;
 
 let length = 272;;
-let input = [1;1;1;0;1;0;0;0;1;1;0;0;1;0;1;0;0];;
+let input = [1;0;0;0;1;1;1;0;0;1;1;1;1;0;0;0;0];;
 
 (* util *)
-let join list = 
+let join list =
   (String.concat "" (List.map string_of_int list));;
 
 let print_list list =
    printf "%s\n" (join list);;
 
 let take n l =
-  let rec _take n l output = 
+  let rec _take n l output =
     match l with
     | [] -> List.rev output
     | _ when n=0 -> List.rev output
@@ -40,10 +40,10 @@ let pairs list =
  * In "b", replace all instances of 0 with 1 and al 1s with 0.
  * The resulting data is "a", then a single 0, then "b". *)
 let step a =
-  let b = List.map invert (List.rev a) in 
+  let b = List.map invert (List.rev a) in
   List.append a (0::b);;
 
-let rec fill_disk a = 
+let rec fill_disk a =
   if List.length a < length then
     fill_disk (step a)
   else
@@ -51,7 +51,7 @@ let rec fill_disk a =
 
 let checksum_term pair =
   if (fst pair) == (snd pair) then 1 else 0;;
-  
+
 let rec checksum data =
   let this_checksum = List.map checksum_term (pairs data) in
   if List.length this_checksum mod 2 == 0 then

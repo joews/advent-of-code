@@ -25,7 +25,7 @@ let print_indicators indicators =
  * that indicate if the tile at position i in this row is a trap *)
 let get_indicators row i tile =
   let row_end = (List.length row - 1)
-  and at = List.at row 
+  and at = List.at row
   in
   match i with
   | 0 -> (s, (at 0), (at 1))
@@ -33,7 +33,7 @@ let get_indicators row i tile =
   | _ -> ((at (i - 1)), (at i), (at (i + 1)));;
 
 (* given the indicators from the previous row, return a tile (trap|safe) *)
-let get_tile indicators = 
+let get_tile indicators =
   match indicators with
   | ('^', '^', '.') -> '^'
   | ('.', '^', '^') -> '^'
@@ -42,13 +42,13 @@ let get_tile indicators =
   | _ -> '.';;
 
 (* given the previous row of tiles, return the next *)
-let get_next_row last_row = 
+let get_next_row last_row =
   let row_indicators = get_indicators last_row in
   let indicators = List.mapi row_indicators last_row in
   List.map get_tile indicators
 
 (* return the number of safe tiles in the given row *)
-let count_row_safe_tiles row = 
+let count_row_safe_tiles row =
   row
   |> List.filter (fun c -> c = '.')
   |> List.length;;
@@ -56,23 +56,23 @@ let count_row_safe_tiles row =
 (* given a puzzle with num_rows rows, starting with row, return
  * the total number of safe stiles *)
 let count_safe_tiles num_rows row =
-  let rec aux num_rows row count = 
+  let rec aux num_rows row count =
     match num_rows with
     | 0 -> count
-    | n -> 
+    | n ->
       let next_row = get_next_row row in
       aux (n - 1) next_row (count + (count_row_safe_tiles row))
-  in aux num_rows row 0          
+  in aux num_rows row 0
 
 (* go *)
-let input = "^^.^..^.....^..^..^^...^^.^....^^^.^.^^....^.^^^...^^^^.^^^^.^..^^^^.^^.^.^.^.^.^^...^^..^^^..^.^^^^";;
+let input = ".^^^.^.^^^^^..^^^..^..^..^^..^.^.^.^^.^^....^.^...^.^^.^^.^^..^^..^.^..^^^.^^...^...^^....^^.^^^^^^^";;
 
 (* part 1 *)
-let num_rows = 40;;
+(* let num_rows = 40;; *)
 
 (* part 2 *)
-(*let num_rows = 400000;;*)
-   
+let num_rows = 400000;;
+
 input
 |> parse
 |> count_safe_tiles num_rows

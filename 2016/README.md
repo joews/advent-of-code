@@ -2,9 +2,9 @@
 
 Mostly JavaScript with some Racket, OCaml, Bash, Perl, C.
 
-- ✅ 1-10, 12-15, 17-19 originally done in 2016, re-run in 2023
-- 16, 18, 20-22 originally done in 2016
-- 11, 23, 24 TODO
+- ✅ 1-10, 12-19 originally done in 2016, re-run in 2023
+- 20-22 originally done in 2016
+- 11, 23, 24, 25 TODO
 
 ## Setup
 

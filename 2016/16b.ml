@@ -7,17 +7,17 @@ This was a learning experience in OCaml computation. I had to:
 *)
 
 let length = 35651584;;
-let input = [1;1;1;0;1;0;0;0;1;1;0;0;1;0;1;0;0];;
+let input = [1;0;0;0;1;1;1;0;0;1;1;1;1;0;0;0;0];;
 
 (* util *)
-let join list = 
+let join list =
   (String.concat "" (List.map string_of_int list));;
 
 let print_list list =
    printf "%s\n" (join list);;
 
 let take n l =
-  let rec _take n l output = 
+  let rec _take n l output =
     match l with
     | [] -> List.rev output
     | _ when n=0 -> List.rev output
@@ -50,7 +50,7 @@ let step a =
   let b = List.rev_map invert a in
   List.rev_append (List.rev a) (0::b);;
 
-let rec fill_disk a = 
+let rec fill_disk a =
   if List.length a < length then
     fill_disk (step a)
   else
@@ -58,7 +58,7 @@ let rec fill_disk a =
 
 let checksum_term pair =
   if (fst pair) == (snd pair) then 1 else 0;;
-  
+
 let rec checksum data =
   let this_checksum = List.rev_map checksum_term (pairs data) in
   if List.length this_checksum mod 2 == 0 then
