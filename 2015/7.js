@@ -1,4 +1,3 @@
-// Input changed for 7b - overridden input to b wire
 const input = `lf AND lq -> ls
 iu RSHIFT 1 -> jn
 bo OR bu -> bv
@@ -339,7 +338,7 @@ NOT h -> i
 NOT hn -> ho
 he RSHIFT 5 -> hh`.split("\n");
 
-const state = {};
+let state = {};
 const MAX = Math.pow(2, 16) - 1;
 
 const and = (a, b) => {
@@ -387,7 +386,7 @@ function parse(s) {
     name: dest,
     get: () => {
       if (cache[dest]) {
-        console.log(`got ${dest} from cache`);
+        // console.log(`got ${dest} from cache`);
         return cache[dest];
       }
 
@@ -418,20 +417,20 @@ x -> a`.split("\n");
 
 //const test2 = ["123 -> x"];
 
-console.log("starting input");
+// Part A:
+console.log("Running A");
 run(input);
-//run(test)
-console.log("done input");
-console.log("starting chain");
-console.log("chain done");
-
 console.log(val("a"));
 
-// d: 72
-// e: 507
-// f: 492
-// g: 114
-// h: 65412
-// i: 65079
-// x: 123
-// y: 456
+// Part B:
+const lastA = val("a");
+console.log("lastA:", lastA);
+
+state = {};
+cache = {
+  b: lastA,
+};
+
+console.log("Running B");
+run(input);
+console.log(val("a"));
