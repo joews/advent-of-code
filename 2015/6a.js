@@ -1,5 +1,4 @@
-const input = 
-`turn off 660,55 through 986,197
+const input = `turn off 660,55 through 986,197
 turn off 341,304 through 638,850
 turn off 199,133 through 461,193
 toggle 322,558 through 977,958
@@ -298,52 +297,48 @@ turn off 446,432 through 458,648
 turn on 715,871 through 722,890
 toggle 424,675 through 740,862
 toggle 580,592 through 671,900
-toggle 296,687 through 906,775`
-  .split("\n");
+toggle 296,687 through 906,775`.split("\n");
 
 const size = 1000;
 const state = new Array(size * size);
 
 const idx = (x, y) => x * size + y;
-const set = (x, y, value) => state[idx(x, y)] = value;
+const set = (x, y, value) => (state[idx(x, y)] = value);
 const get = (x, y) => state[idx(x, y)] || 0;
 
-const linePattern = /^((?:turn on)|(?:turn off)|(?:toggle)) (\d+),(\d+) through (\d+),(\d+)$/;
+const linePattern =
+  /^((?:turn on)|(?:turn off)|(?:toggle)) (\d+),(\d+) through (\d+),(\d+)$/;
 
 const parse = (line) => {
   const parts = line.match(linePattern);
   if (!parts) {
     return null;
   }
-  
-  return [
-    parts[1], 
-    [+parts[2], +parts[3]], 
-    [+parts[4], +parts[5]]
-  ];
-}
+
+  return [parts[1], [+parts[2], +parts[3]], [+parts[4], +parts[5]]];
+};
 
 const setRange = (op, [x0, y0], [x1, y1]) => {
-  for (let x = x0; x <= x1; x ++) {
-    for (let y = y0; y <= y1; y ++) {
+  for (let x = x0; x <= x1; x++) {
+    for (let y = y0; y <= y1; y++) {
       if (op === "turn on") set(x, y, 1);
       else if (op === "turn off") set(x, y, 0);
-      else if (op === "toggle") set(x, y, +!get(x, y))
+      else if (op === "toggle") set(x, y, +!get(x, y));
       else console.log(`bad op: ${op}`);
     }
   }
-}
+};
 
 const execLine = (line) => {
   const parsed = parse(line);
-  if(parsed) {
+  if (parsed) {
     setRange(...parsed);
   } else {
-    console.log(`Could not parse: ${line}`)
+    console.log(`Could not parse: ${line}`);
   }
-}
+};
 
 // Go!
-input.forEach(execLine)
+input.forEach(execLine);
 const count = state.reduce((sum, cell) => sum + (cell || 0), 0);
 console.log(count);

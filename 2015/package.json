@@ -10,17 +10,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jwhitfieldseed/advent-of-code.git"
+    "url": "git+https://github.com/joews/advent-of-code.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jwhitfieldseed/advent-of-code/issues"
+    "url": "https://github.com/joews/advent-of-code/issues"
   },
-  "homepage": "https://github.com/jwhitfieldseed/advent-of-code#readme",
+  "homepage": "https://github.com/joews/advent-of-code#readme",
   "dependencies": {
     "a-star": "^0.2.0",
-    "fn": "git@github.com:jwhitfieldseed/fn.git",
+    "fn": "https://github.com/joews/fn.git",
     "md5": "^2.2.1"
   },
   "devDependencies": {
