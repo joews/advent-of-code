@@ -306,12 +306,20 @@ input = r"""
 
 result = 0
 
+test_input = r"""
+""
+"abc"
+"aaa\"aaa"
+"\x27"
+"""
+
 for line in input.split("\n"):
     if line:
         escaped = line.replace("\\", "\\\\")
-        print(line, escaped)
-        result = result + len(escaped) + 4 - len(line)
+        escaped = escaped.replace('"', '\\"')
 
+        # Add 2 for the surrounding quotes
+        result += len(escaped) + 2 - len(line)
 
 print(result)
 print("done")
