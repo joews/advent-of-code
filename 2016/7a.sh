@@ -5,4 +5,4 @@
 # 2. grep: filter out any lines that match abba inside square brackets. There
 #    may be more than one set on a line, so enforce open/closing.
 # 3. grep: match the remaining abba patterns
-cat input/7.txt | perl -pe 's/(.)\1\1/\1 \1/' | ggrep -Pv '\[[^\[\]]*?(.)(.)\2\1[^\[\]]*?\]' | ggrep -P '(.)(.)\2\1' | wc -l
+cat input/7.txt | perl -pe 's/(.)\1\1/\1 \1/' | grep -Pv '\[[^\[\]]*?(.)(.)\2\1[^\[\]]*?\]' | grep -P '(.)(.)\2\1' | wc -l

@@ -10,18 +10,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jwhitfieldseed/advent-of-code.git"
+    "url": "git+https://github.com/joews/advent-of-code.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jwhitfieldseed/advent-of-code/issues"
+    "url": "https://github.com/joews/advent-of-code/issues"
   },
-  "homepage": "https://github.com/jwhitfieldseed/advent-of-code#readme",
+  "homepage": "https://github.com/joews/advent-of-code#readme",
   "dependencies": {
     "a-star": "^0.2.0",
-    "fn": "git@github.com:jwhitfieldseed/fn.git",
-    "md5": "^2.2.1"
+    "fn": "git@github.com:joews/fn.git",
+    "md5": "^2.2.1",
+    "babel-register": "6.26.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.14.0"
   },
   "devDependencies": {
     "babel": "^6.5.2",
