@@ -167,7 +167,7 @@ function execute(inputInstructions) {
 // Part B
 // Spent so long debugging the non-literal `jnz` arg2, that I'm out of time to
 // implement the hinted optimisation for multiply.
-// Brute force in 1:59 on Github Codespaces.
+// Brute force in 1:59 on Github Codespace.
 state.a = 12;
 
 const input = loadInput("23.txt").trim().split("\n");
