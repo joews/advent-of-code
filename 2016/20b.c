@@ -10,13 +10,14 @@
 // Generate input:
 // # cat input/20.txt | perl -pe 's/([\d]+)-([\d]+)/if (i >= $1 && i <= $2) continue;/g' > ./20a_conditions.c
 
-// 2016 timings (hardware unknown :-) )
+// 2016 timings (2015 Macbook pro)
 // runs in 7 mins with O3
 // runs in 18 mins with no optimisation
 // JavaScript port runs in 31 mins
 
-// 2023 
-// Github Codespace: 40s
+// 2023 timings 
+// Github Codespace: 0:40!
+// 2021 Macbook Pro M1: 6:01
 
 unsigned int result = 0;
 unsigned int MAX = 4294967295;
