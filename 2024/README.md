@@ -1,6 +1,6 @@
 # 2024
 
-Deno + Jupyter + Codespaces
+Deno / Python + Jupyter + Codespaces
 
 ## Setup
 
@@ -16,3 +16,5 @@ deno --version
 # v8 13.0.245.12-rusty
 # typescript 5.6.2
 ```
+
+Use Python 3.21.1 in a venv created with Jupyter.
